@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>SALT Larval Consensus Summary Statistics</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">2022 LFC/LBS</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="data.html">Data Exploration</a>
+</li>
+<li>
+  <a href="poster.html">LBS/LFC Poster</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">SALT Larval Consensus Summary Statistics</h1>
+
+</div>
+
+
+<div id="by-dexter-davis---research-technician-for-dr.-shawn-arellano" class="section level4">
+<h4>By Dexter Davis - Research Technician for Dr. Shawn Arellano</h4>
+</div>
+<div id="this-markdown-file-summarizes-the-larval-data-collected-with-the-syprid-collector-on-the-auv-sentry-during-the-2020-en658-and-2021-tn391-salt-project-cruises.-this-is-part-of-the-seep-animal-larval-transport-salt-project-nsf-award-1851286." class="section level4">
+<h4>This Markdown file summarizes the larval data collected with the SyPRID collector on the AUV Sentry during the 2020 EN658 and 2021 TN391 SALT project cruises. This is part of the Seep Animal Larval Transport (SALT) project, NSF Award #1851286.</h4>
+</div>
+<div id="this-markdown-file-will-summarize-the-data-by-site-as-well-as-by-depth-classification.-depth-classification-are-as-follows-demersal---5-meters-above-bottom-low-water-column---80-meters-above-bottom-thermocline---depths-varied-between-sites-mid-water-column---a-midway-depth-between-the-thermocline-and-demersal-depths." class="section level4">
+<h4>This markdown file will summarize the data by site as well as by depth classification. Depth classification are as follows: Demersal - 5 meters above bottom, Low Water Column - 80 meters above bottom, Thermocline - depths varied between sites, Mid Water Column - a midway depth between the thermocline and demersal depths.</h4>
+</div>
+<div id="data-entry-and-subsetting" class="section level4">
+<h4><strong>Data Entry and Subsetting</strong></h4>
+<pre class="r"><code>#install.packages(&quot;ggplot2&quot;)
+library(PNWColors)
+library(ggplot2)
+library(readxl)
+library(knitr)
+library(RColorBrewer)
+library(gplots)
+library(qrcode)
+library(vegan)
+library(reshape2)
+library(ggdendro)
+library(plyr)
+
+setwd(&quot;C:/Users/davis/OneDrive/Desktop/SPMC Work/Morphotype Consensus&quot;)
+
+## Every Dive from Both Cruises
+Dive &lt;- read_xlsx(&quot;SALT_Larval_Consensus_Final_COPY.xlsx&quot;, sheet = &quot;Larval Total Counts&quot;)
+Dive &lt;- Dive[-c(43),]
+Dive &lt;- subset(Dive[-c(7:153)])
+
+## Number of Dives per Site and Depth Classification
+Dives &lt;- read_xlsx(&quot;SALT_Larval_Consensus_Final_COPY.xlsx&quot;, sheet = &quot;Number of Dives&quot;)
+SiteD &lt;- subset(Dives[-c(1:3)])
+colnames(SiteD) &lt;- c(&quot;Site&quot;,&quot;Number of Dives&quot;,&quot;Average Flow Rate (L/min)&quot;)
+DepthD &lt;-subset(Dives[-c(4:6)])
+DepthD &lt;- na.omit(DepthD)
+colnames(DepthD) &lt;- c(&quot;Depth Classification&quot;,&quot;Number of Dives&quot;,&quot;Average Flow Rate (L/min)&quot;)
+
+
+## Average Volume Collected, Larvae Collected, Larval Density per Site and Depth Classification
+Avgs &lt;- read_xlsx(&quot;SALT_Larval_Consensus_Final_COPY.xlsx&quot;, sheet = &quot;Averages&quot;)
+SiteAvg &lt;- subset(Avgs[-c(8:15)])
+SVol &lt;- subset(SiteAvg[-c(4:7)])
+SLar &lt;- subset(SiteAvg[-c(2:3,6:7)])
+SDen &lt;- subset(SiteAvg[-c(2:5)])
+SDen &lt;- subset(SDen, SDen$Site != &quot;Florida Keys&quot;)
+
+DepthAvg &lt;- subset(Avgs[-c(1:8)])
+DepthAvg &lt;- na.omit(DepthAvg) 
+DVol &lt;- subset(DepthAvg[-c(4:7)])
+DLar &lt;- subset(DepthAvg[-c(2:3,6:7)])
+DDen &lt;- subset(DepthAvg[-c(2:5)])
+
+## Site data untouched - has each site and depth classifications within
+Site &lt;- read_xlsx(&quot;SALT_Larval_Consensus_Final_COPY.xlsx&quot;, sheet = &quot;Larval Density by Site an Depth&quot;)
+BaltimoreCanyon &lt;- subset(Site,Site$`Sample Site`==&quot;Baltimore Canyon&quot;)
+BlakeRidge &lt;- subset(Site,Site$`Sample Site`==&quot;Blake Ridge&quot;) 
+BrinePool &lt;- subset(Site,Site$`Sample Site`==&quot;Brine Pool&quot;)
+BushHill &lt;- subset(Site,Site$`Sample Site`==&quot;Bush Hill&quot;)
+Chincoteague &lt;- subset(Site,Site$`Sample Site`==&quot;Chincoteague&quot;)
+FloridaEscarpment &lt;- subset(Site,Site$`Sample Site`==&quot;Florida Escarpment&quot;)
+GC234 &lt;- subset(Site,Site$`Sample Site`==&quot;Green Canyon 234&quot;)
+MississippiCanyon &lt;- subset(Site,Site$`Sample Site`==&quot;Mississippi Canyon&quot;)
+
+## Larval Type Code Guide
+Guide &lt;- read_xlsx(&quot;SALT_Larval_Consensus_Final_COPY.xlsx&quot;, sheet =&quot;Larval Type Guide&quot;)
+
+## Larval Type Presence by Depth
+LarvDepth &lt;- read_xlsx(&quot;SALT_Larval_Consensus_Final_COPY.xlsx&quot;, sheet =&quot;Larval Type by Depth&quot;)
+
+LDDem &lt;- subset(LarvDepth,LarvDepth$`Depth Classification`==&quot;Demersal&quot;)
+LDDem &lt;- subset(LDDem[-c(1)])
+LDMWC &lt;- subset(LarvDepth,LarvDepth$`Depth Classification`==&quot;Mid Water Column&quot;)
+LDMWC &lt;- subset(LDMWC[-c(1)])
+LDTherm &lt;- subset(LarvDepth,LarvDepth$`Depth Classification`==&quot;Thermocline&quot;)
+LDTherm &lt;- subset(LDTherm[-c(1)])</code></pre>
+</div>
+<div id="summary-of-dives-from-en658-and-tn391" class="section level2">
+<h2><strong>Summary of Dives from EN658 and TN391</strong></h2>
+</div>
+<div id="section" class="section level2">
+<h2>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</h2>
+<table>
+<colgroup>
+<col width="6%" />
+<col width="17%" />
+<col width="12%" />
+<col width="8%" />
+<col width="36%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Cruise</th>
+<th align="left">Site</th>
+<th align="left">Dive # / Code</th>
+<th align="left">Method</th>
+<th align="left">Depth (meters, mab= meters above bottom)</th>
+<th align="left">Depth Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">EN658</td>
+<td align="left">Baltimore Canyon</td>
+<td align="left">HN0</td>
+<td align="left">Hand Net</td>
+<td align="left">0</td>
+<td align="left">Surface</td>
+</tr>
+<tr class="even">
+<td align="left">EN658</td>
+<td align="left">Baltimore Canyon</td>
+<td align="left">HN200</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">EN658</td>
+<td align="left">Baltimore Canyon</td>
+<td align="left">HN200B</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="even">
+<td align="left">EN658</td>
+<td align="left">Blake Ridge</td>
+<td align="left">S569P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="odd">
+<td align="left">EN658</td>
+<td align="left">Blake Ridge</td>
+<td align="left">S569S</td>
+<td align="left">Sentry</td>
+<td align="left">80mab</td>
+<td align="left">Lower Water Column</td>
+</tr>
+<tr class="even">
+<td align="left">EN658</td>
+<td align="left">Blake Ridge</td>
+<td align="left">S570S</td>
+<td align="left">Sentry</td>
+<td align="left">5-195mab</td>
+<td align="left">Lower Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">EN658</td>
+<td align="left">Blake Ridge</td>
+<td align="left">BR200</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="even">
+<td align="left">EN658</td>
+<td align="left">Blake Ridge</td>
+<td align="left">BR200B</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">EN658</td>
+<td align="left">Brine Pool</td>
+<td align="left">S572S</td>
+<td align="left">Sentry</td>
+<td align="left">5mab</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="even">
+<td align="left">EN658</td>
+<td align="left">Brine Pool</td>
+<td align="left">S572P</td>
+<td align="left">Sentry</td>
+<td align="left">80mab</td>
+<td align="left">Mid Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">EN658</td>
+<td align="left">Brine Pool</td>
+<td align="left">BP200</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="even">
+<td align="left">EN658</td>
+<td align="left">Brine Pool</td>
+<td align="left">BP200B</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">EN658</td>
+<td align="left">Bush Hill</td>
+<td align="left">BH200B</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="even">
+<td align="left">EN658</td>
+<td align="left">Bush Hill</td>
+<td align="left">BH200C</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">EN658</td>
+<td align="left">Florida Keys</td>
+<td align="left">FK200</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="even">
+<td align="left">EN658</td>
+<td align="left">Florida Keys</td>
+<td align="left">FK200B</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">EN658</td>
+<td align="left">Mississippi Canyon</td>
+<td align="left">MC200</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="even">
+<td align="left">EN658</td>
+<td align="left">Mississippi Canyon</td>
+<td align="left">MC200B</td>
+<td align="left">Hand Net</td>
+<td align="left">0-200</td>
+<td align="left">Upper Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Baltimore Canyon</td>
+<td align="left">S583P</td>
+<td align="left">Sentry</td>
+<td align="left">10mab (420)</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Baltimore Canyon</td>
+<td align="left">S584P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab (425)</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Baltimore Canyon</td>
+<td align="left">S585P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab (380)</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Baltimore Canyon</td>
+<td align="left">S584S</td>
+<td align="left">Sentry</td>
+<td align="left">300</td>
+<td align="left">Mid Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Baltimore Canyon</td>
+<td align="left">S583S</td>
+<td align="left">Sentry</td>
+<td align="left">200</td>
+<td align="left">Thermocline</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Blake Ridge</td>
+<td align="left">S587P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab (2160)</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Blake Ridge</td>
+<td align="left">S588P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab (2163)</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Blake Ridge</td>
+<td align="left">S587S</td>
+<td align="left">Sentry</td>
+<td align="left">200</td>
+<td align="left">Thermocline</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Blake Ridge</td>
+<td align="left">S588S</td>
+<td align="left">Sentry</td>
+<td align="left">200</td>
+<td align="left">Thermocline</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Brine Pool</td>
+<td align="left">S592P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab (500)</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Brine Pool</td>
+<td align="left">S593P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Brine Pool</td>
+<td align="left">S592S</td>
+<td align="left">Sentry</td>
+<td align="left">300</td>
+<td align="left">Mid Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Brine Pool</td>
+<td align="left">S593S</td>
+<td align="left">Sentry</td>
+<td align="left">200</td>
+<td align="left">Thermocline</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Bush Hill</td>
+<td align="left">S594P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Bush Hill</td>
+<td align="left">S594S</td>
+<td align="left">Sentry</td>
+<td align="left">300</td>
+<td align="left">Mid Water Column</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Chincoteague</td>
+<td align="left">S586P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab (995)</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Florida Escarpment</td>
+<td align="left">S589P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab (3300)</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Florida Escarpment</td>
+<td align="left">S590S</td>
+<td align="left">Sentry</td>
+<td align="left">1700</td>
+<td align="left">Mid Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Florida Escarpment</td>
+<td align="left">S589S</td>
+<td align="left">Sentry</td>
+<td align="left">200</td>
+<td align="left">Thermocline</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Florida Keys</td>
+<td align="left">HN200FK</td>
+<td align="left">Hand Net</td>
+<td align="left">200</td>
+<td align="left">Surface</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Green Canyon 234</td>
+<td align="left">S591P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab (500)</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Green Canyon 234</td>
+<td align="left">S591S</td>
+<td align="left">Sentry</td>
+<td align="left">300</td>
+<td align="left">Mid Water Column</td>
+</tr>
+<tr class="odd">
+<td align="left">TN391</td>
+<td align="left">Mississippi Canyon</td>
+<td align="left">S595P</td>
+<td align="left">Sentry</td>
+<td align="left">5mab</td>
+<td align="left">Demersal</td>
+</tr>
+<tr class="even">
+<td align="left">TN391</td>
+<td align="left">Mississippi Canyon</td>
+<td align="left">S595S</td>
+<td align="left">Sentry</td>
+<td align="left">600</td>
+<td align="left">Mid Water Column</td>
+</tr>
+</tbody>
+</table>
+<div id="the-rest-of-this-markdown-file-and-data-analysis-will-focus-only-on-the-tn391-sentry-dives-this-exludes-florida-keys-hand-net-and-the-en658-brine-pool-sentry-dives-s572ss572p.-brine-pool-was-the-only-en658-site-that-had-comparable-depths-to-tn391-and-sentry-did-not-malfunction-en658-blake-ridge." class="section level4">
+<h4>The rest of this markdown file and data analysis will focus only on the TN391 Sentry dives (this exludes Florida Keys Hand Net) and the EN658 Brine Pool Sentry dives (S572S/S572P). Brine Pool was the only EN658 site that had comparable depths to TN391, and Sentry did not malfunction (EN658 Blake Ridge).</h4>
+</div>
+</div>
+<div id="sentry-performance" class="section level1">
+<h1><strong>Sentry Performance</strong></h1>
+<div id="summary-tables-of-number-of-dives" class="section level2">
+<h2><strong>Summary Tables of Number of Dives</strong></h2>
+</div>
+<div id="section-1" class="section level2">
+<h2>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</h2>
+<table>
+<caption>Number of Dives per Site</caption>
+<thead>
+<tr class="header">
+<th align="left">Site</th>
+<th align="right">Number of Dives</th>
+<th align="right">Average Flow Rate (L/min)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Baltimore Canyon</td>
+<td align="right">5</td>
+<td align="right">11521.929</td>
+</tr>
+<tr class="even">
+<td align="left">Blake Ridge</td>
+<td align="right">4</td>
+<td align="right">10900.721</td>
+</tr>
+<tr class="odd">
+<td align="left">Brine Pool</td>
+<td align="right">5</td>
+<td align="right">12619.784</td>
+</tr>
+<tr class="even">
+<td align="left">Bush Hill</td>
+<td align="right">2</td>
+<td align="right">9334.150</td>
+</tr>
+<tr class="odd">
+<td align="left">Chincoteague</td>
+<td align="right">1</td>
+<td align="right">11569.161</td>
+</tr>
+<tr class="even">
+<td align="left">Florida Escarpment</td>
+<td align="right">3</td>
+<td align="right">12849.621</td>
+</tr>
+<tr class="odd">
+<td align="left">Green Canyon 234</td>
+<td align="right">2</td>
+<td align="right">11067.122</td>
+</tr>
+<tr class="even">
+<td align="left">Mississippi Canyon</td>
+<td align="right">2</td>
+<td align="right">9261.488</td>
+</tr>
+</tbody>
+</table>
+<div id="flow-rate-range-9261-12850-litersmin" class="section level3">
+<h3>Flow Rate Range: 9,261-12,850 Liters/min</h3>
+<table>
+<caption>Number of Dives per Depth Classification</caption>
+<thead>
+<tr class="header">
+<th align="left">Depth Classification</th>
+<th align="right">Number of Dives</th>
+<th align="right">Average Flow Rate (L/min)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Demersal</td>
+<td align="right">13</td>
+<td align="right">8673.924</td>
+</tr>
+<tr class="even">
+<td align="left">Mid Water Column</td>
+<td align="right">6</td>
+<td align="right">10489.760</td>
+</tr>
+<tr class="odd">
+<td align="left">Thermocline</td>
+<td align="right">5</td>
+<td align="right">19611.084</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="flow-rate-range-8674-19611-litersmin" class="section level3">
+<h3>Flow Rate Range: 8,674-19,611 Liters/min</h3>
+</div>
+</div>
+<div id="statistics-between-sites-and-depth-classifications" class="section level2">
+<h2><strong>Statistics Between Sites and Depth Classifications</strong></h2>
+</div>
+<div id="section-2" class="section level2 tabset">
+<h2 class="tabset">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</h2>
+<!--- ~~~~~~~~~~~~~~~~~~~~~~~~~~SITE CLASSIFICATIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="sites" class="section level3 tabset">
+<h3 class="tabset">Sites</h3>
+<div id="volume-sampled" class="section level4">
+<h4>Volume Sampled</h4>
+<pre class="r"><code>#SVol
+my_title &lt;- &quot;Average Volume of Water Collected by SyPRID by Site&quot;
+ggplot(SVol, aes(x=SVol$Site, y=SVol$`Avg Volume Sampled`))+geom_bar(fill=&quot;deepskyblue3&quot;,stat=&quot;identity&quot;,position=position_dodge(),width = 0.9)+labs(title =my_title, x=&quot;Site&quot;, y=&quot;Average Volume Collected (L)&quot;)+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=SVol$`Avg Volume Sampled`- SVol$`Volume STDev...3`, ymax=SVol$`Avg Volume Sampled`+ SVol$`Volume STDev...3`), width=.2,position=position_dodge(.9))</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-5-1.png" width="100%" /></p>
+</div>
+<div id="larvae-collected" class="section level4">
+<h4>Larvae Collected</h4>
+<pre class="r"><code>#SLAr
+my_title &lt;- &quot;Average Number of Larvae Collected by SyPRID by Site&quot;
+ggplot(SLar, aes(x=SLar$Site, y=SLar$`Avg #Larva Collected`))+geom_bar(fill=&quot;palevioletred3&quot;,stat=&quot;identity&quot;,position=position_dodge(),width = 0.9)+labs(title =my_title, x=&quot;Site&quot;, y=&quot;Average # Larvae Collected&quot;)+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=SLar$`Avg #Larva Collected`- SLar$`Larvae STDev...5`, ymax=SLar$`Avg #Larva Collected`+SLar$`Larvae STDev...5`), width=.2,position=position_dodge(.9))</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-6-1.png" width="100%" /></p>
+</div>
+<div id="larval-density" class="section level4 unnumbered">
+<h4 class="unnumbered">Larval Density</h4>
+<pre class="r"><code>#SDen
+SDen$Site &lt;- factor(SDen$Site,levels=c(&quot;Baltimore Canyon&quot;,&quot;Chincoteague&quot;,&quot;Blake Ridge&quot;,&quot;Florida Escarpment&quot;,&quot;Mississippi Canyon&quot;,&quot;Green Canyon 234&quot;,&quot;Bush Hill&quot;,&quot;Brine Pool&quot;))
+
+my_title &lt;- &quot;Average Larval Density Collected by SyPRID by Site&quot;
+ggplot(SDen, aes(x=SDen$Site, y=SDen$`Avg Larval Density`,fill=SDen$Site))+geom_bar(stat=&quot;identity&quot;,position=position_dodge(),width = 0.9)+labs(title =my_title, x=&quot;Site&quot;, y=&quot;Average Larval Density (#/L)&quot;)+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=SDen$`Avg Larval Density`- SDen$`Density STDev...7`, ymax=SDen$`Avg Larval Density`+SDen$`Density STDev...7`), width=.2,position=position_dodge(.9))+scale_fill_viridis_d()</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-7-1.png" width="100%" /></p>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~DEPTH CLASSIFICATIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+</div>
+</div>
+<div id="depth-classifications" class="section level3 tabset">
+<h3 class="tabset">Depth Classifications</h3>
+<div id="volume-sampled-1" class="section level4">
+<h4>Volume Sampled</h4>
+<pre class="r"><code>#DVol
+my_title &lt;- &quot;Average Volume of Water Collected by SyPRID by Depth Classification&quot;
+ggplot(DVol, aes(x=DVol$`Depth Classification`, y=DVol$`Avg. Volume Sampled (L)`))+geom_bar(fill=&quot;deepskyblue3&quot;,stat=&quot;identity&quot;,position=position_dodge(),width = 0.9)+labs(title =my_title, x=&quot;Depth&quot;, y=&quot;Average Volume Collected (L)&quot;)+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=DVol$`Avg. Volume Sampled (L)`- DVol$`Volume STDev...11`, ymax=DVol$`Avg. Volume Sampled (L)`+ DVol$`Volume STDev...11`), width=.2,position=position_dodge(.9))</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-8-1.png" width="100%" /></p>
+</div>
+<div id="larvae-collected-1" class="section level4">
+<h4>Larvae Collected</h4>
+<pre class="r"><code>#DLar
+my_title &lt;- &quot;Average Number of Larvae Collected by SyPRID by Depth Classification&quot;
+ggplot(DLar, aes(x=DLar$`Depth Classification`, y=DLar$`Avg. Larvae Collected`))+geom_bar(fill=&quot;palevioletred3&quot;,stat=&quot;identity&quot;,position=position_dodge(),width = 0.9)+labs(title =my_title, x=&quot;Depth&quot;, y=&quot;Average # Larvae Collected&quot;)+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=DLar$`Avg. Larvae Collected`- DLar$`Larvae STDev...13`, ymax=DLar$`Avg. Larvae Collected`+DLar$`Larvae STDev...13`), width=.2,position=position_dodge(.9))</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-9-1.png" width="100%" /></p>
+</div>
+<div id="larval-density-1" class="section level4">
+<h4>Larval Density</h4>
+<pre class="r"><code>#DDen
+my_title &lt;- &quot;Average Larval Density Collected by SyPRID by Depth Classification&quot;
+ggplot(DDen, aes(x=DDen$`Depth Classification`, y=DDen$`Avg. Larval Density (#/L)`))+geom_bar(fill=c(&quot;darkslategray3&quot;,&quot;blueviolet&quot;,&quot;dodgerblue4&quot;),stat=&quot;identity&quot;,position=position_dodge(),width = 0.9)+labs(title =my_title, x=&quot;Site&quot;, y=&quot;Average Larval Density (#/L)&quot;)+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=DDen$`Avg. Larval Density (#/L)`- DDen$`Density STDev...15`, ymax=DDen$`Avg. Larval Density (#/L)`+DDen$`Density STDev...15`), width=.2,position=position_dodge(.9))</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-10-1.png" width="100%" /></p>
+</div>
+</div>
+</div>
+<div id="statistics-within-individual-sites" class="section level2">
+<h2><strong>Statistics Within Individual Sites</strong></h2>
+</div>
+<div id="section-3" class="section level2 tabset">
+<h2 class="tabset">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</h2>
+<p>For sites that had multiple dives at given depths (ex. 3 Demersal depths at Brine Pool), the values were averaged resulting in one bar per depth per site.</p>
+<pre class="r"><code>#Let&#39;s make some fuctions!
+
+wrapper &lt;- function(x, ...) 
+{
+  paste(strwrap(x, ...), collapse = &quot;\n&quot;)
+}
+
+#Volume Sampled
+Vol &lt;- function(site,title){
+  ggplot(site, aes(x=`Depth Classification`,y=`Volume Sampled (L)`))+geom_bar(stat=&quot;identity&quot;, fill=&#39;deepskyblue3&#39;)+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+labs(title=paste0(&#39;Volume Sampled with SyPRID by Depth Classificiation at &#39;,title),x=&quot;Depth Classificiation&quot;, y=&quot;Volume Sampled (L)&quot;)+theme(plot.title = element_text(hjust = 0.5))
+}
+
+#Larvae Collected
+Lar &lt;- function(site,title){
+  ggplot(site, aes(x=`Depth Classification`,y=`Total Larva Collected`))+geom_bar(stat=&quot;identity&quot;, fill=&#39;palevioletred3&#39;)+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+labs(title=paste0(&#39;Larvae Collected with SyPRID by Depth Classification at &#39;,title),x=&quot;Depth Classificiation&quot;, y=&quot;Number of Larvae&quot;)+theme(plot.title = element_text(hjust = 0.5))
+}
+  
+#Larval Density
+Den &lt;- function(site,title){
+  my_title &lt;- paste0(&#39;Larval Density collected with SyPRID by Depth Classification at &#39;,title)
+  ggplot(site, aes(x=`Depth Classification`,y=`Larval Density (#/L)`))+geom_bar(stat=&quot;identity&quot;, fill=&#39;salmon2&#39;)+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+labs(title=my_title ,x=&quot;Depth Classificiation&quot;, y=&quot;Larval Density (#/L)&quot;)+theme(plot.title = element_text(hjust = 0.5))+ggtitle(wrapper(my_title, width = 70))
+} </code></pre>
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Baltimore Canyon~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="baltimore-canyon" class="section level3 tabset">
+<h3 class="tabset">Baltimore Canyon</h3>
+<div id="volume-sampled-2" class="section level4">
+<h4>Volume Sampled</h4>
+<pre class="r"><code>Vol(BaltimoreCanyon,&quot;Baltimore Canyon&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="larvae-collected-2" class="section level4">
+<h4>Larvae Collected</h4>
+<pre class="r"><code>Lar(BaltimoreCanyon,&quot;Baltimore Canyon&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="larval-density-2" class="section level4">
+<h4>Larval Density</h4>
+<pre class="r"><code>Den(BaltimoreCanyon,&quot;Baltimore Canyon&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Blake Ridge~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+</div>
+</div>
+<div id="blake-ridge" class="section level3 tabset">
+<h3 class="tabset">Blake Ridge</h3>
+<div id="volume-sampled-3" class="section level4">
+<h4>Volume Sampled</h4>
+<pre class="r"><code>Vol(BlakeRidge, &quot;Blake Ridge&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+<div id="larvae-collected-3" class="section level4">
+<h4>Larvae Collected</h4>
+<pre class="r"><code>Lar(BlakeRidge, &quot;Blake Ridge&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+<div id="larval-density-3" class="section level4">
+<h4>Larval Density</h4>
+<pre class="r"><code>Den(BlakeRidge, &quot;Blake Ridge&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Brine Pool~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+</div>
+</div>
+<div id="brine-pool" class="section level3 tabset">
+<h3 class="tabset">Brine Pool</h3>
+<div id="volume-sampled-4" class="section level4">
+<h4>Volume Sampled</h4>
+<pre class="r"><code>Vol(BrinePool, &quot;Brine Pool&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+</div>
+<div id="larvae-collected-4" class="section level4">
+<h4>Larvae Collected</h4>
+<pre class="r"><code>Lar(BrinePool, &quot;Brine Pool&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>
+<div id="larval-density-4" class="section level4">
+<h4>Larval Density</h4>
+<pre class="r"><code>Den(BrinePool, &quot;Brine Pool&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<!--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Bush Hill~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+</div>
+</div>
+<div id="bush-hill" class="section level3 tabset">
+<h3 class="tabset">Bush Hill</h3>
+<div id="volume-sampled-5" class="section level4">
+<h4>Volume Sampled</h4>
+<pre class="r"><code>Vol(BushHill, &quot;Bush Hill&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+<div id="larvae-collected-5" class="section level4">
+<h4>Larvae Collected</h4>
+<pre class="r"><code>Lar(BushHill, &quot;Bush Hill&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+</div>
+<div id="larval-density-5" class="section level4">
+<h4>Larval Density</h4>
+<pre class="r"><code>Den(BushHill, &quot;Bush Hill&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Chincoteague~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+</div>
+</div>
+<div id="chincoteague" class="section level3 tabset">
+<h3 class="tabset">Chincoteague</h3>
+<div id="volume-sampled-6" class="section level4">
+<h4>Volume Sampled</h4>
+<pre class="r"><code>Vol(Chincoteague, &quot;Chincoteague&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+</div>
+<div id="larvae-collected-6" class="section level4">
+<h4>Larvae Collected</h4>
+<pre class="r"><code>Lar(Chincoteague, &quot;Chincoteague&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+</div>
+<div id="larval-density-6" class="section level4">
+<h4>Larval Density</h4>
+<pre class="r"><code>Den(Chincoteague, &quot;Chincoteague&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<!--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Florida Escarpment~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+</div>
+</div>
+<div id="florida-escarpment" class="section level3 tabset">
+<h3 class="tabset">Florida Escarpment</h3>
+<div id="volume-sampled-7" class="section level4">
+<h4>Volume Sampled</h4>
+<pre class="r"><code>Vol(FloridaEscarpment, &quot;Florida Escarpment&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+</div>
+<div id="larvae-collected-7" class="section level4">
+<h4>Larvae Collected</h4>
+<pre class="r"><code>Lar(FloridaEscarpment, &quot;Florida Escarpment&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+</div>
+<div id="larval-density-7" class="section level4">
+<h4>Larval Density</h4>
+<pre class="r"><code>Den(FloridaEscarpment, &quot;Florida Escarpment&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Green Canyon 234~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+</div>
+</div>
+<div id="green-canyon-234" class="section level3 tabset">
+<h3 class="tabset">Green Canyon 234</h3>
+<div id="volume-sampled-8" class="section level4">
+<h4>Volume Sampled</h4>
+<pre class="r"><code>Vol(GC234, &quot;Green Canyon 234&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+</div>
+<div id="larvae-collected-8" class="section level4">
+<h4>Larvae Collected</h4>
+<pre class="r"><code>Lar(GC234, &quot;Green Canyon 234&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+</div>
+<div id="larval-density-8" class="section level4">
+<h4>Larval Density</h4>
+<pre class="r"><code>Den(GC234, &quot;Green Canyon 234&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Mississippi Canyon~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+</div>
+</div>
+<div id="mississippi-canyon" class="section level3 tabset">
+<h3 class="tabset">Mississippi Canyon</h3>
+<div id="volume-sampled-9" class="section level4">
+<h4>Volume Sampled</h4>
+<pre class="r"><code>Vol(MississippiCanyon, &quot;Mississippi Canyon&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+</div>
+<div id="larvae-collected-9" class="section level4">
+<h4>Larvae Collected</h4>
+<pre class="r"><code>Lar(MississippiCanyon, &quot;Mississippi Canyon&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+</div>
+<div id="larval-density-9" class="section level4">
+<h4>Larval Density</h4>
+<pre class="r"><code>Den(MississippiCanyon, &quot;Mississippi Canyon&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+</div>
+<div id="morphotyping-results" class="section level1">
+<h1><strong>Morphotyping Results</strong></h1>
+<div id="larval-type-guide" class="section level2">
+<h2><strong>Larval Type Guide</strong></h2>
+</div>
+<div id="section-4" class="section level2">
+<h2>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</h2>
+<table>
+<caption>SALT Larval Types Found</caption>
+<thead>
+<tr class="header">
+<th align="left">Form</th>
+<th align="left">Phylum</th>
+<th align="left">Morphotype Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AC</td>
+<td align="left">Phoronida</td>
+<td align="left">Actinotroph</td>
+</tr>
+<tr class="even">
+<td align="left">AJ</td>
+<td align="left">Echinodermata</td>
+<td align="left">Asteroid Juvenile</td>
+</tr>
+<tr class="odd">
+<td align="left">AT</td>
+<td align="left">Cnidaria</td>
+<td align="left">Actinula</td>
+</tr>
+<tr class="even">
+<td align="left">AU</td>
+<td align="left">Echinodermata</td>
+<td align="left">Auricularia</td>
+</tr>
+<tr class="odd">
+<td align="left">BL</td>
+<td align="left">Echinodermata</td>
+<td align="left">Brachiolaria</td>
+</tr>
+<tr class="even">
+<td align="left">BP</td>
+<td align="left">Echinodermata</td>
+<td align="left">Bipinnaria</td>
+</tr>
+<tr class="odd">
+<td align="left">BV</td>
+<td align="left">Mollusca</td>
+<td align="left">Bivalve Veliger</td>
+</tr>
+<tr class="even">
+<td align="left">CB</td>
+<td align="left">Ctenophora</td>
+<td align="left">Cydippid</td>
+</tr>
+<tr class="odd">
+<td align="left">CE</td>
+<td align="left">Cnidaria</td>
+<td align="left">Cerinula</td>
+</tr>
+<tr class="even">
+<td align="left">CP</td>
+<td align="left">Arthropoda</td>
+<td align="left">Cyprid</td>
+</tr>
+<tr class="odd">
+<td align="left">CY</td>
+<td align="left">Bryozoa</td>
+<td align="left">Cyphonautes</td>
+</tr>
+<tr class="even">
+<td align="left">DL</td>
+<td align="left">Echinodermata</td>
+<td align="left">Doliolaria</td>
+</tr>
+<tr class="odd">
+<td align="left">EC</td>
+<td align="left">Annelida</td>
+<td align="left">Echiura</td>
+</tr>
+<tr class="even">
+<td align="left">EP</td>
+<td align="left">Cnidaria</td>
+<td align="left">Ephyra</td>
+</tr>
+<tr class="odd">
+<td align="left">GV</td>
+<td align="left">Mollusca</td>
+<td align="left">Gastropod Veliger</td>
+</tr>
+<tr class="even">
+<td align="left">LG</td>
+<td align="left">Brachiopoda</td>
+<td align="left">Lingula</td>
+</tr>
+<tr class="odd">
+<td align="left">MI</td>
+<td align="left">Annelida</td>
+<td align="left">Mitraria</td>
+</tr>
+<tr class="even">
+<td align="left">ML</td>
+<td align="left">Arthropoda</td>
+<td align="left">Megalopa</td>
+</tr>
+<tr class="odd">
+<td align="left">NE</td>
+<td align="left">Annelida</td>
+<td align="left">Nectochaete</td>
+</tr>
+<tr class="even">
+<td align="left">NP</td>
+<td align="left">Arthropoda</td>
+<td align="left">Nauplius</td>
+</tr>
+<tr class="odd">
+<td align="left">OJ</td>
+<td align="left">Echinodermata</td>
+<td align="left">Ophiuroid Juvenile</td>
+</tr>
+<tr class="even">
+<td align="left">OP</td>
+<td align="left">Echinodermata</td>
+<td align="left">Ophiopluteus</td>
+</tr>
+<tr class="odd">
+<td align="left">PC</td>
+<td align="left">Porifera</td>
+<td align="left">Parenchymula</td>
+</tr>
+<tr class="even">
+<td align="left">PG/PS</td>
+<td align="left">Annelida</td>
+<td align="left">Pelagosphera</td>
+</tr>
+<tr class="odd">
+<td align="left">PI</td>
+<td align="left">Nemertea</td>
+<td align="left">Pilidium</td>
+</tr>
+<tr class="even">
+<td align="left">PL</td>
+<td align="left">Cnidaria</td>
+<td align="left">Planula</td>
+</tr>
+<tr class="odd">
+<td align="left">PU</td>
+<td align="left">Echinodermata</td>
+<td align="left">Pluteus</td>
+</tr>
+<tr class="even">
+<td align="left">SQ</td>
+<td align="left">Mollusca</td>
+<td align="left">Squid Paralarva</td>
+</tr>
+<tr class="odd">
+<td align="left">ST</td>
+<td align="left">Annelida</td>
+<td align="left">Setiger</td>
+</tr>
+<tr class="even">
+<td align="left">TO</td>
+<td align="left">Hemichordata</td>
+<td align="left">Tornaria</td>
+</tr>
+<tr class="odd">
+<td align="left">TP</td>
+<td align="left">Annelida / Mollusca</td>
+<td align="left">Trocophore</td>
+</tr>
+<tr class="even">
+<td align="left">UJ</td>
+<td align="left">Echinodermata</td>
+<td align="left">Urchin Juvenile</td>
+</tr>
+<tr class="odd">
+<td align="left">ZE</td>
+<td align="left">Cnidaria</td>
+<td align="left">Zoanthella</td>
+</tr>
+<tr class="even">
+<td align="left">ZO</td>
+<td align="left">Arthropoda</td>
+<td align="left">Zoea</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="larval-type-presence-by-depth" class="section level2">
+<h2><strong>Larval Type Presence by Depth</strong></h2>
+</div>
+<div id="section-5" class="section level2 tabset">
+<h2 class="tabset">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</h2>
+<div id="demersal" class="section level3">
+<h3>Demersal</h3>
+<table>
+<caption>Larval Types Found at Demersal Depths</caption>
+<thead>
+<tr class="header">
+<th align="left">Site</th>
+<th align="left">Dive</th>
+<th align="right"># Morphotypes</th>
+<th align="left">Larval Types Present</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Baltimore Canyon</td>
+<td align="left">S583P</td>
+<td align="right">8</td>
+<td align="left">BV/GV/NP/PC/PG/TP/ZO</td>
+</tr>
+<tr class="even">
+<td align="left">Baltimore Canyon</td>
+<td align="left">S584P</td>
+<td align="right">8</td>
+<td align="left">BV/GV/PC/PG/PL/TP/ZO</td>
+</tr>
+<tr class="odd">
+<td align="left">Baltimore Canyon</td>
+<td align="left">S585P</td>
+<td align="right">8</td>
+<td align="left">BV/CY/PC/PL/TP/ZO</td>
+</tr>
+<tr class="even">
+<td align="left">Blake Ridge</td>
+<td align="left">S587P</td>
+<td align="right">7</td>
+<td align="left">BV/CY/GV/MI/NE/TP</td>
+</tr>
+<tr class="odd">
+<td align="left">Blake Ridge</td>
+<td align="left">S588P</td>
+<td align="right">7</td>
+<td align="left">BV/GV/NE/OP</td>
+</tr>
+<tr class="even">
+<td align="left">Brine Pool</td>
+<td align="left">S572S</td>
+<td align="right">12</td>
+<td align="left">BP/BV/GV/NE/NP/OJ/TP</td>
+</tr>
+<tr class="odd">
+<td align="left">Brine Pool</td>
+<td align="left">S592P</td>
+<td align="right">13</td>
+<td align="left">BV/GV/NE/OJ/PL</td>
+</tr>
+<tr class="even">
+<td align="left">Brine Pool</td>
+<td align="left">S593P</td>
+<td align="right">11</td>
+<td align="left">AT/BL/BV/CY/GV/NE</td>
+</tr>
+<tr class="odd">
+<td align="left">Bush Hill</td>
+<td align="left">S594P</td>
+<td align="right">11</td>
+<td align="left">AT/BL/BV/GV/LG/NE/OJ/TP</td>
+</tr>
+<tr class="even">
+<td align="left">Chincoteague</td>
+<td align="left">S592P</td>
+<td align="right">5</td>
+<td align="left">DL/NE/NP/TP/ZO</td>
+</tr>
+<tr class="odd">
+<td align="left">Florida Escarpment</td>
+<td align="left">S589P</td>
+<td align="right">9</td>
+<td align="left">BV/CY/NE/NP</td>
+</tr>
+<tr class="even">
+<td align="left">Green Canyon 234</td>
+<td align="left">S591P</td>
+<td align="right">12</td>
+<td align="left">BV/CY/GV/ML/NE/ZO</td>
+</tr>
+<tr class="odd">
+<td align="left">Mississippi Canyon</td>
+<td align="left">S595P</td>
+<td align="right">7</td>
+<td align="left">BV/DL/GV/LG/TP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="mid-water-column" class="section level3">
+<h3>Mid Water Column</h3>
+<table>
+<caption>Larval Types Found at Mid Water Column Depths</caption>
+<thead>
+<tr class="header">
+<th align="left">Site</th>
+<th align="left">Dive</th>
+<th align="right"># Morphotypes</th>
+<th align="left">Larval Types Present</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Baltimore Canyon</td>
+<td align="left">S584S</td>
+<td align="right">5</td>
+<td align="left">CY/GV/NE/PL/TP</td>
+</tr>
+<tr class="even">
+<td align="left">Brine Pool</td>
+<td align="left">S592S</td>
+<td align="right">13</td>
+<td align="left">AT/BV/CY/GV/NE/OK/PC/PL/TP</td>
+</tr>
+<tr class="odd">
+<td align="left">Bush Hill</td>
+<td align="left">S594S</td>
+<td align="right">11</td>
+<td align="left">AT/BV/CY/GV/MI/NE/OJ/OP/PL</td>
+</tr>
+<tr class="even">
+<td align="left">Florida Escarpment</td>
+<td align="left">S590S</td>
+<td align="right">5</td>
+<td align="left">BV/CY/GV/NE</td>
+</tr>
+<tr class="odd">
+<td align="left">Green Canyon 234</td>
+<td align="left">S591S</td>
+<td align="right">11</td>
+<td align="left">BL/BV/CY/GV/LG/NE/TP</td>
+</tr>
+<tr class="even">
+<td align="left">Mississippi Canyon</td>
+<td align="left">S595S</td>
+<td align="right">4</td>
+<td align="left">AT/GV/NE/TP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="thermocline" class="section level3">
+<h3>Thermocline</h3>
+<table>
+<caption>Larval Types Found at Thermocline Depths</caption>
+<thead>
+<tr class="header">
+<th align="left">Site</th>
+<th align="left">Dive</th>
+<th align="right"># Morphotypes</th>
+<th align="left">Larval Types Present</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Baltimore Canyon</td>
+<td align="left">S583S</td>
+<td align="right">9</td>
+<td align="left">BV/GV/ML/PC/PG/PL/TP/ZO</td>
+</tr>
+<tr class="even">
+<td align="left">Blake Ridge</td>
+<td align="left">S587S</td>
+<td align="right">7</td>
+<td align="left">AT/BV/CY/GV/PG/TP</td>
+</tr>
+<tr class="odd">
+<td align="left">Blake Ridge</td>
+<td align="left">S588S</td>
+<td align="right">8</td>
+<td align="left">BV/CY/MI/PG/PI/PL</td>
+</tr>
+<tr class="even">
+<td align="left">Brine Pool</td>
+<td align="left">S593S</td>
+<td align="right">9</td>
+<td align="left">BL/BV/CY/DL/GV/NE/OJ</td>
+</tr>
+<tr class="odd">
+<td align="left">Florida Escarpment</td>
+<td align="left">S589S</td>
+<td align="right">9</td>
+<td align="left">BV/GV/MI/NE/PG/TP</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="section-6" class="section level2 unnumbered">
+<h2 class="unnumbered"></h2>
+<div id="larval-types-present-in-every-depth-classification" class="section level3">
+<h3>Larval Types Present in Every Depth Classification*:</h3>
+<div id="across-sites" class="section level4">
+<h4>*Across sites</h4>
+<ul>
+<li>Brachiolaria (BL)</li>
+<li>Bivalve Veliger (BV)</li>
+<li>Gastropod Veliger (GV)</li>
+<li>Mitraria (MI)</li>
+<li>Nectochaete (NE)</li>
+<li>Parenchymula (PC)</li>
+<li>Planula (PL)</li>
+<li>Trocophore (TP)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="community-composition-analysis" class="section level1">
+<h1><strong>Community Composition Analysis</strong></h1>
+<div id="section-7" class="section level2">
+<h2>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</h2>
+</div>
+<div id="section-8" class="section level2 tabset">
+<h2 class="tabset"></h2>
+<div id="nmds-plot" class="section level3">
+<h3>NMDS Plot</h3>
+<pre class="r"><code>SALT &lt;- read_xlsx(&quot;SALT_Larval_Consensus_Final-COPY.xlsx&quot;, sheet = &quot;Morphotype Counts by Depth&quot;)
+SALT &lt;- subset(SALT, SALT$Method == &quot;Sentry&quot;) #Only interested in Sentry Data
+SALT &lt;- subset(SALT, SALT$Site != &quot;Florida Keys&quot;) #Not using Florida Keys Samples
+SALT &lt;- subset(SALT, SALT$Cruise != &quot;EN658&quot;)
+
+#NMDS Data Analysis
+
+NMDS &lt;- metaMDS(SALT[c(11:151,153:154)], k=2) #Removed unkown (UNK) Morphotype</code></pre>
+<pre><code>## Square root transformation
+## Wisconsin double standardization
+## Run 0 stress 0.2082584 
+## Run 1 stress 0.2249806 
+## Run 2 stress 0.2082584 
+## ... New best solution
+## ... Procrustes: rmse 7.123955e-06  max resid 1.933612e-05 
+## ... Similar to previous best
+## Run 3 stress 0.2577065 
+## Run 4 stress 0.2082584 
+## ... New best solution
+## ... Procrustes: rmse 9.227413e-06  max resid 2.285938e-05 
+## ... Similar to previous best
+## Run 5 stress 0.2249805 
+## Run 6 stress 0.2082983 
+## ... Procrustes: rmse 0.01469259  max resid 0.04988133 
+## Run 7 stress 0.2125757 
+## Run 8 stress 0.2113348 
+## Run 9 stress 0.2082584 
+## ... Procrustes: rmse 6.004551e-06  max resid 1.471178e-05 
+## ... Similar to previous best
+## Run 10 stress 0.2370726 
+## Run 11 stress 0.2478411 
+## Run 12 stress 0.2113348 
+## Run 13 stress 0.2466424 
+## Run 14 stress 0.2082983 
+## ... Procrustes: rmse 0.01465319  max resid 0.04974242 
+## Run 15 stress 0.2082983 
+## ... Procrustes: rmse 0.01466932  max resid 0.04980125 
+## Run 16 stress 0.2367192 
+## Run 17 stress 0.2082584 
+## ... Procrustes: rmse 9.743249e-06  max resid 2.097695e-05 
+## ... Similar to previous best
+## Run 18 stress 0.2113348 
+## Run 19 stress 0.2459374 
+## Run 20 stress 0.2100642 
+## *** Solution reached</code></pre>
+<pre class="r"><code>#Creating a data frame with the NMDS values
+data.scores &lt;- as.data.frame(scores(NMDS,NMDS$sites)) #Using scores functions from Vegan to extract NMDS values into data frame
+data.scores$Site &lt;- SALT$Site #Site Information from SALT Spreadsheet
+data.scores$Cruise &lt;- SALT$Cruise # Cruise EN658 or TN391
+data.scores$Depth &lt;- SALT $`Depth Classification` # Depth Classification - Demersal, Low WC, Mid WC, Thermocline
+
+depth &lt;- data.scores$Depth
+site &lt;- data.scores$Site
+stress &lt;-mean(round(NMDS$stress,digits=1)) 
+p2 &lt;- ggplot() + 
+  geom_point(data=data.scores,aes(x=NMDS1,y=NMDS2,shape=data.scores$Depth, color=data.scores$Site), size=4) + # add the point markers
+  coord_equal() +  scale_color_manual(values=c(&quot;Baltimore Canyon&quot; = &quot;firebrick1&quot;, &quot;Blake Ridge&quot; = &quot;forest green&quot;, &quot;Brine Pool&quot; = &quot;blue&quot;, &quot;Bush Hill&quot; = &quot;orange&quot;, &quot;Chincoteague&quot; = &quot;darkgoldenrod4&quot;, &quot;Florida Escarpment&quot; = &quot;plum2&quot;, &quot;Green Canyon 234&quot; = &quot;purple3&quot;, &quot;Mississippi Canyon&quot; = &quot;cyan4&quot;), name = &quot;Site&quot;) +
+  scale_shape_manual(values=c(&quot;Demersal&quot; = 15, &quot;Mid Water Column&quot; = 17, &quot;Thermocline&quot; = 19), name = &quot;Depth Classification&quot;) +
+  guides(fill = guide_legend(order = 1, override.aes = list(shape = NA, alpha = 1)), shape = guide_legend(order = 2)) +
+  theme_classic() + 
+  theme(panel.border = element_rect(colour = &quot;black&quot;, fill = NA), 
+        axis.text.x = element_text(size=12, colour=&quot;black&quot;),  axis.text.y = element_text(size=12, colour=&quot;black&quot;), 
+        axis.title.x = element_text(size=14, colour=&quot;black&quot;), axis.title.y = element_text(size=14, colour=&quot;black&quot;))+annotate(&quot;text&quot;,x=-0.5,y=.7,label=paste(&quot;Stress =&quot;,stress))
+p2</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+</div>
+<div id="dendogram" class="section level3">
+<h3>Dendogram</h3>
+<pre class="r"><code>test.dist&lt;-vegdist(SALT[c(11:151,153:154)], method=&quot;bray&quot;)
+cluster.circles&lt;-hclust(test.dist, method=&quot;average&quot;) 
+plot(cluster.circles, ylab=&quot;Dissimilarity OR 1-Similarity&quot;,labels=SALT$`Depth Classification`,hang=-.1, xlab=&quot;&quot;)
+abline(h=.30,lty=3)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>##{-}</p>
+</div>
+</div>
+<div id="morphotype-proportion-by-depth-and-site" class="section level2">
+<h2><strong>Morphotype Proportion by Depth and Site</strong></h2>
+</div>
+<div id="section-9" class="section level2">
+<h2>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</h2>
+</div>
+<div id="section-10" class="section level2 tabset">
+<h2 class="tabset"></h2>
+<div id="significant-morphotypes" class="section level3">
+<h3>Significant Morphotypes</h3>
+<pre class="r"><code># Heat Map of Bivalve Veliger Morphotypes.
+HeatDat &lt;- read_xlsx(&quot;Morphotype_Consensus_Percentages.xlsx&quot;, sheet = &quot;Final&quot;)
+HeatDat &lt;- subset(HeatDat, HeatDat$Cruise == &quot;TN391&quot;)
+HeatMat &lt;- HeatDat[-c(1:6,35)]
+mypalette &lt;- colorRampPalette(c(&quot;white&quot;,&quot;slateblue1&quot;,&quot;slateblue4&quot;))(n=1000)
+
+
+Sig &lt;- HeatMat[-c(1:2,6:8,11:17,19:21,23,26:28)]
+rownames(Sig) &lt;- c(HeatDat$`Sample Name`)
+
+
+heat &lt;- as.matrix(Sig)
+heat &lt;-t(heat)
+heatmap.2(heat,
+          symkey = FALSE, 
+          Rowv = FALSE,
+          Colv = FALSE,
+          xlab = &quot;Site&quot;, 
+          ylab=&quot;Morphotype&quot;, 
+          ColSideColors = c(&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;cyan2&#39;,&#39;dodgerblue4&#39;,&#39;dodgerblue4&#39;,&#39;cyan2&#39;,&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;cyan2&#39;,&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;cyan2&#39;,&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;),
+          col = mypalette,
+          add.expr = c(abline(v=6.5),
+          col = c(&quot;cyan&quot;,&quot;darkslategray3&quot;,&quot;dodgerblue4&quot;),pch=19), 
+          trace=&quot;none&quot;, 
+          density.info = &quot;none&quot;, 
+          key.xlab = &quot;Proportion of Larval Sample&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-42-1.png" width="100%" /></p>
+</div>
+<div id="all-morphotypes" class="section level3">
+<h3>All Morphotypes</h3>
+<pre class="r"><code># Heat Map of Bivalve Veliger Morphotypes.
+HeatDat &lt;- read_xlsx(&quot;Morphotype_Consensus_Percentages.xlsx&quot;, sheet = &quot;Final&quot;)
+HeatDat &lt;- subset(HeatDat, HeatDat$Cruise == &quot;TN391&quot;)
+HeatMat &lt;- HeatDat[-c(1:6,35)]
+mypalette &lt;- colorRampPalette(c(&quot;white&quot;,&quot;slateblue1&quot;,&quot;slateblue4&quot;))(n=1000)
+
+row.names(HeatMat) &lt;-  (HeatDat$`Sample Name`)
+heat &lt;- as.matrix(HeatMat)
+heat &lt;-t(heat)
+heatmap.2(heat,
+          symkey = FALSE, 
+          Rowv = FALSE,
+          Colv = FALSE,
+          xlab = &quot;Site&quot;, 
+          
+          ylab=&quot;Morphotype&quot;, 
+          ColSideColors = c(&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;cyan2&#39;,&#39;dodgerblue4&#39;,&#39;dodgerblue4&#39;,&#39;cyan2&#39;,&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;cyan2&#39;,&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;cyan2&#39;,&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;),
+          col = mypalette, 
+          add.expr = c(abline(v=6.5),
+          col = c(&quot;cyan&quot;,&quot;darkslategray3&quot;,&quot;dodgerblue4&quot;),pch=19), 
+          trace=&quot;none&quot;, 
+          density.info = &quot;none&quot;, 
+          key.xlab = &quot;Proportion of Larval Sample&quot;)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-43-1.png" width="100%" /></p>
+</div>
+<div id="brine-pool-seasonality" class="section level3">
+<h3>Brine Pool Seasonality</h3>
+<pre class="r"><code># Heat Map of Bivalve Veliger Morphotypes.
+HeatDat &lt;- read_xlsx(&quot;Morphotype_Consensus_Percentages.xlsx&quot;, sheet = &quot;Final&quot;)
+HeatDat &lt;- subset(HeatDat, HeatDat$Site == &quot;Brine Pool&quot;)
+HeatMat &lt;- HeatDat[-c(1:6,13,17:18,24,29,32:34,35)]
+mypalette &lt;- colorRampPalette(c(&quot;white&quot;,&quot;slateblue1&quot;,&quot;slateblue4&quot;))(n=1000)
+
+row.names(HeatMat) &lt;-  (c(&quot;FallD&quot;,&quot;FallM&quot;,&quot;SpringD&quot;,&quot;SpringM&quot;,&quot;SpringT&quot;))
+heat &lt;- as.matrix(HeatMat)
+heat &lt;-t(heat)
+heatmap.2(heat,
+          symkey = FALSE, 
+          Rowv = FALSE,
+          Colv = FALSE,
+          xlab = &quot;Site&quot;, 
+          
+          ylab=&quot;Morphotype&quot;, 
+          ColSideColors = c(&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;dodgerblue4&#39;,&#39;darkslategray3&#39;,&#39;cyan2&#39;),
+          col = mypalette, 
+          add.expr = c(abline(v=2.5),
+          col = c(&quot;cyan&quot;,&quot;darkslategray3&quot;,&quot;dodgerblue4&quot;),pch=19), 
+          trace=&quot;none&quot;, 
+          density.info = &quot;none&quot;, 
+          key.xlab = &quot;Proportion of Larval Sample&quot;,
+          srtCol=45)</code></pre>
+<p><img src="data_files/figure-html/unnamed-chunk-44-1.png" width="100%" /></p>
+</div>
+</div>
+<div id="section-11" class="section level2 unnumbered">
+<h2 class="unnumbered"></h2>
+<div id="site-codes-denote-the-following-bc-baltimore-canyon-ch-chincoteague-br-blake-ridge-fe-florida-escarpment-mc-mississippi-canyon-bp-brine-pool-bh-bush-hill-gc-green-canyon-234.-the-letters-after-these-site-codes-represent-the-depth-classificaiton-d-demersal-m-mid-water-column-t-thermocline." class="section level4">
+<h4>* Site codes denote the following: BC = Baltimore Canyon, CH = Chincoteague, BR = Blake Ridge, FE = Florida Escarpment, MC = Mississippi Canyon, BP = Brine Pool, BH = Bush Hill, GC = Green Canyon 234. The letters after these site codes represent the depth classificaiton; D = Demersal, M = Mid Water Column, T = Thermocline.</h4>
+</div>
+<div id="for-brine-pool-collections-from-the-fall-2020-en658-cruise-are-denoted-with-the-codes-fall-while-the-other-site-codes-are-from-the-spring-2021-tn391-cruise." class="section level4">
+<h4>For Brine Pool, collections from the Fall 2020 EN658 cruise are denoted with the codes Fall, while the other site codes are from the Spring 2021 TN391 cruise.</h4>
+</div>
+<div id="the-color-bar-along-the-columns-acts-as-a-visual-aid-for-the-depth-classifications-demersal-darkblue-mid-water-column-gray-blue-thermocline-cyan-." class="section level4">
+<h4>The color bar along the columns acts as a visual aid for the depth classifications; demersal (<span style="color:navy"> darkblue </span>), mid water column (<span style="color:powderblue"> gray-blue </span>), thermocline (<span style="color:cyan"> cyan </span>).</h4>
+</div>
+<div id="the-vertical-line-represents-the-geographical-split-between-the-western-atlantic-margin-left-and-the-gulf-of-mexico-right-sites-or-the-split-between-fall-and-spring-cruises." class="section level4">
+<h4>The vertical line represents the geographical split between the Western Atlantic Margin (left) and the Gulf of Mexico (right) sites or the split between Fall and Spring cruises.</h4>
+</div>
+</div>
+<div id="total-counts-for-depth-classifications-notes" class="section level2">
+<h2>Total Counts for Depth Classifications (Notes)</h2>
+</div>
+<div id="section-12" class="section level2">
+<h2>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</h2>
+<ul>
+<li>Many BV morphotypes have higher abundance in demersal samples
+<ul>
+<li>BV02, BV03, BV04, BV07-BV12, BV14, BV15, BV20</li>
+<li>BV01 somewhat consistent across depths</li>
+</ul></li>
+<li>Gv morphotypes vary depth classifications
+<ul>
+<li>Higher Demersal: GV04, GV07, GV16, GV17, GV19, GV20, GV22</li>
+<li>Higher Mid WC: GV09, GV10</li>
+<li>Higher Thermocline: GV02, GV03, GV13, GV14, GV21</li>
+<li>Higher Mid / Thermo: GV01</li>
+</ul></li>
+<li>NE most abundance in Demersal &amp; mid water column.</li>
+<li>PC more abundant closer to bottom.</li>
+<li>PG more abundance in thermocline (except PG01 similar thermocline and demersal).</li>
+<li>PL more abundant higher in water column.</li>
+<li>TP most abundant demersally, similar low water column and thermocline.
+<ul>
+<li>TP01 more abundant closer to bottom.</li>
+</ul></li>
+<li>ZO slightly more abundant demersal to thermocline</li>
+</ul>
+</div>
+<div id="vertical-distributions-of-target-larvae" class="section level2">
+<h2><strong>Vertical Distributions of Target Larvae</strong></h2>
+</div>
+<div id="section-13" class="section level2 tabset">
+<h2 class="tabset">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</h2>
+<div id="bv_01" class="section level3">
+<h3>BV_01</h3>
+<p><img src="data_files/figure-html/unnamed-chunk-46-1.png" width="100%" /></p>
+</div>
+<div id="bv_03" class="section level3">
+<h3>BV_03</h3>
+<p><img src="data_files/figure-html/unnamed-chunk-47-1.png" width="100%" /></p>
+</div>
+<div id="bv_04" class="section level3">
+<h3>BV_04</h3>
+<p><img src="data_files/figure-html/unnamed-chunk-48-1.png" width="100%" /></p>
+</div>
+<div id="bv_20" class="section level3">
+<h3>BV_20</h3>
+<p><img src="data_files/figure-html/unnamed-chunk-49-1.png" width="100%" /></p>
+</div>
+<div id="gv_01" class="section level3">
+<h3>GV_01</h3>
+<p><img src="data_files/figure-html/unnamed-chunk-50-1.png" width="100%" /></p>
+</div>
+<div id="mi_01" class="section level3">
+<h3>MI_01</h3>
+<p><img src="data_files/figure-html/unnamed-chunk-51-1.png" width="100%" /></p>
+</div>
+<div id="pc_01" class="section level3">
+<h3>PC_01</h3>
+<p><img src="data_files/figure-html/unnamed-chunk-52-1.png" width="100%" /></p>
+</div>
+<div id="pg_02" class="section level3">
+<h3>PG_02</h3>
+<p><img src="data_files/figure-html/unnamed-chunk-53-1.png" width="100%" /></p>
+</div>
+<div id="tp_01" class="section level3">
+<h3>TP_01</h3>
+<p><img src="data_files/figure-html/unnamed-chunk-54-1.png" width="100%" /></p>
+</div>
+</div>
+<div id="section-14" class="section level2 unnumbered">
+<h2 class="unnumbered"></h2>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
