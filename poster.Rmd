@@ -1,0 +1,5 @@
+---
+title: "Davis, Dexter 2022 LFC/LBS Poster Online Version"
+output: html_document
+---
+<embed src="Davis_Dexter_LFC-LBS_Poster-Final.pdf" type="application/pdf" width="100%" height="800px">

@@ -1,0 +1,658 @@
+---
+title: "SALT Larval Consensus Summary Statistics"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+#### By Dexter Davis - Research Technician for Dr. Shawn Arellano
+#### This Markdown file summarizes the larval data collected with the SyPRID collector on the AUV Sentry during the 2020 EN658 and 2021 TN391 SALT project cruises. This is part of the Seep Animal Larval Transport (SALT) project, NSF Award #1851286.
+
+#### This markdown file will summarize the data by site as well as by depth classification. Depth classification are as follows: Demersal - 5 meters above bottom, Low Water Column - 80 meters above bottom, Thermocline - depths varied between sites, Mid Water Column - a midway depth between the thermocline and demersal depths.
+
+#### **Data Entry and Subsetting**
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#install.packages("ggplot2")
+library(PNWColors)
+library(ggplot2)
+library(readxl)
+library(knitr)
+library(RColorBrewer)
+library(gplots)
+library(qrcode)
+library(vegan)
+library(reshape2)
+library(ggdendro)
+library(plyr)
+
+setwd("C:/Users/davis/OneDrive/Desktop/SPMC Work/Morphotype Consensus")
+
+## Every Dive from Both Cruises
+Dive <- read_xlsx("SALT_Larval_Consensus_Final_COPY.xlsx", sheet = "Larval Total Counts")
+Dive <- Dive[-c(43),]
+Dive <- subset(Dive[-c(7:153)])
+
+## Number of Dives per Site and Depth Classification
+Dives <- read_xlsx("SALT_Larval_Consensus_Final_COPY.xlsx", sheet = "Number of Dives")
+SiteD <- subset(Dives[-c(1:3)])
+colnames(SiteD) <- c("Site","Number of Dives","Average Flow Rate (L/min)")
+DepthD <-subset(Dives[-c(4:6)])
+DepthD <- na.omit(DepthD)
+colnames(DepthD) <- c("Depth Classification","Number of Dives","Average Flow Rate (L/min)")
+
+
+## Average Volume Collected, Larvae Collected, Larval Density per Site and Depth Classification
+Avgs <- read_xlsx("SALT_Larval_Consensus_Final_COPY.xlsx", sheet = "Averages")
+SiteAvg <- subset(Avgs[-c(8:15)])
+SVol <- subset(SiteAvg[-c(4:7)])
+SLar <- subset(SiteAvg[-c(2:3,6:7)])
+SDen <- subset(SiteAvg[-c(2:5)])
+SDen <- subset(SDen, SDen$Site != "Florida Keys")
+
+DepthAvg <- subset(Avgs[-c(1:8)])
+DepthAvg <- na.omit(DepthAvg) 
+DVol <- subset(DepthAvg[-c(4:7)])
+DLar <- subset(DepthAvg[-c(2:3,6:7)])
+DDen <- subset(DepthAvg[-c(2:5)])
+
+## Site data untouched - has each site and depth classifications within
+Site <- read_xlsx("SALT_Larval_Consensus_Final_COPY.xlsx", sheet = "Larval Density by Site an Depth")
+BaltimoreCanyon <- subset(Site,Site$`Sample Site`=="Baltimore Canyon")
+BlakeRidge <- subset(Site,Site$`Sample Site`=="Blake Ridge") 
+BrinePool <- subset(Site,Site$`Sample Site`=="Brine Pool")
+BushHill <- subset(Site,Site$`Sample Site`=="Bush Hill")
+Chincoteague <- subset(Site,Site$`Sample Site`=="Chincoteague")
+FloridaEscarpment <- subset(Site,Site$`Sample Site`=="Florida Escarpment")
+GC234 <- subset(Site,Site$`Sample Site`=="Green Canyon 234")
+MississippiCanyon <- subset(Site,Site$`Sample Site`=="Mississippi Canyon")
+
+## Larval Type Code Guide
+Guide <- read_xlsx("SALT_Larval_Consensus_Final_COPY.xlsx", sheet ="Larval Type Guide")
+
+## Larval Type Presence by Depth
+LarvDepth <- read_xlsx("SALT_Larval_Consensus_Final_COPY.xlsx", sheet ="Larval Type by Depth")
+
+LDDem <- subset(LarvDepth,LarvDepth$`Depth Classification`=="Demersal")
+LDDem <- subset(LDDem[-c(1)])
+LDMWC <- subset(LarvDepth,LarvDepth$`Depth Classification`=="Mid Water Column")
+LDMWC <- subset(LDMWC[-c(1)])
+LDTherm <- subset(LarvDepth,LarvDepth$`Depth Classification`=="Thermocline")
+LDTherm <- subset(LDTherm[-c(1)])
+```
+
+
+## **Summary of Dives from EN658 and TN391**
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+```{r echo=FALSE,results='asis', out.width='100%'}
+kable(Dive)
+```
+
+#### The rest of this markdown file and data analysis will focus only on the TN391 Sentry dives (this exludes Florida Keys Hand Net) and the EN658 Brine Pool Sentry dives (S572S/S572P). Brine Pool was the only EN658 site that had comparable depths to TN391, and Sentry did not malfunction (EN658 Blake Ridge). 
+
+# **Sentry Performance**
+
+## **Summary Tables of Number of Dives**
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+```{r echo=FALSE,results='asis', out.width='100%'}
+kable(SiteD, caption = "Number of Dives per Site")
+
+```
+### Flow Rate Range: 9,261-12,850 Liters/min
+
+```{r echo=FALSE,results='asis', out.width='100%'}
+kable(DepthD, caption = "Number of Dives per Depth Classification")
+
+```
+### Flow Rate Range: 8,674-19,611 Liters/min
+
+## **Statistics Between Sites and Depth Classifications**
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.tabset}
+
+<!--- ~~~~~~~~~~~~~~~~~~~~~~~~~~SITE CLASSIFICATIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+### Sites {.tabset}
+
+#### Volume Sampled
+```{r, out.width='100%', echo=TRUE, warning=FALSE}
+#SVol
+my_title <- "Average Volume of Water Collected by SyPRID by Site"
+ggplot(SVol, aes(x=SVol$Site, y=SVol$`Avg Volume Sampled`))+geom_bar(fill="deepskyblue3",stat="identity",position=position_dodge(),width = 0.9)+labs(title =my_title, x="Site", y="Average Volume Collected (L)")+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=SVol$`Avg Volume Sampled`- SVol$`Volume STDev...3`, ymax=SVol$`Avg Volume Sampled`+ SVol$`Volume STDev...3`), width=.2,position=position_dodge(.9))
+```
+
+#### Larvae Collected
+```{r, out.width='100%', echo=TRUE, warning=FALSE}
+#SLAr
+my_title <- "Average Number of Larvae Collected by SyPRID by Site"
+ggplot(SLar, aes(x=SLar$Site, y=SLar$`Avg #Larva Collected`))+geom_bar(fill="palevioletred3",stat="identity",position=position_dodge(),width = 0.9)+labs(title =my_title, x="Site", y="Average # Larvae Collected")+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=SLar$`Avg #Larva Collected`- SLar$`Larvae STDev...5`, ymax=SLar$`Avg #Larva Collected`+SLar$`Larvae STDev...5`), width=.2,position=position_dodge(.9))
+```
+
+#### Larval Density {-}
+```{r, out.width='100%', echo=TRUE, warning=FALSE}
+#SDen
+SDen$Site <- factor(SDen$Site,levels=c("Baltimore Canyon","Chincoteague","Blake Ridge","Florida Escarpment","Mississippi Canyon","Green Canyon 234","Bush Hill","Brine Pool"))
+
+my_title <- "Average Larval Density Collected by SyPRID by Site"
+ggplot(SDen, aes(x=SDen$Site, y=SDen$`Avg Larval Density`,fill=SDen$Site))+geom_bar(stat="identity",position=position_dodge(),width = 0.9)+labs(title =my_title, x="Site", y="Average Larval Density (#/L)")+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=SDen$`Avg Larval Density`- SDen$`Density STDev...7`, ymax=SDen$`Avg Larval Density`+SDen$`Density STDev...7`), width=.2,position=position_dodge(.9))+scale_fill_viridis_d()
+```
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~DEPTH CLASSIFICATIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+### Depth Classifications {.tabset}
+#### Volume Sampled
+```{r, out.width='100%', echo=TRUE, warning=FALSE}
+#DVol
+my_title <- "Average Volume of Water Collected by SyPRID by Depth Classification"
+ggplot(DVol, aes(x=DVol$`Depth Classification`, y=DVol$`Avg. Volume Sampled (L)`))+geom_bar(fill="deepskyblue3",stat="identity",position=position_dodge(),width = 0.9)+labs(title =my_title, x="Depth", y="Average Volume Collected (L)")+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=DVol$`Avg. Volume Sampled (L)`- DVol$`Volume STDev...11`, ymax=DVol$`Avg. Volume Sampled (L)`+ DVol$`Volume STDev...11`), width=.2,position=position_dodge(.9))
+```
+
+#### Larvae Collected
+```{r, out.width='100%', echo=TRUE, warning=FALSE}
+#DLar
+my_title <- "Average Number of Larvae Collected by SyPRID by Depth Classification"
+ggplot(DLar, aes(x=DLar$`Depth Classification`, y=DLar$`Avg. Larvae Collected`))+geom_bar(fill="palevioletred3",stat="identity",position=position_dodge(),width = 0.9)+labs(title =my_title, x="Depth", y="Average # Larvae Collected")+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=DLar$`Avg. Larvae Collected`- DLar$`Larvae STDev...13`, ymax=DLar$`Avg. Larvae Collected`+DLar$`Larvae STDev...13`), width=.2,position=position_dodge(.9))
+```
+
+#### Larval Density
+```{r, out.width='100%', echo=TRUE, warning=FALSE}
+#DDen
+my_title <- "Average Larval Density Collected by SyPRID by Depth Classification"
+ggplot(DDen, aes(x=DDen$`Depth Classification`, y=DDen$`Avg. Larval Density (#/L)`))+geom_bar(fill=c("darkslategray3","blueviolet","dodgerblue4"),stat="identity",position=position_dodge(),width = 0.9)+labs(title =my_title, x="Site", y="Average Larval Density (#/L)")+theme(plot.title = element_text(hjust=0.5), axis.text.x=element_text(angle = 45, vjust = 1, hjust=1))+geom_errorbar(aes(ymin=DDen$`Avg. Larval Density (#/L)`- DDen$`Density STDev...15`, ymax=DDen$`Avg. Larval Density (#/L)`+DDen$`Density STDev...15`), width=.2,position=position_dodge(.9))
+```
+
+
+## **Statistics Within Individual Sites**
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.tabset}
+
+For sites that had multiple dives at given depths (ex. 3 Demersal depths at Brine Pool), the values were averaged resulting in one bar per depth per site.
+
+```{r}
+#Let's make some fuctions!
+
+wrapper <- function(x, ...) 
+{
+  paste(strwrap(x, ...), collapse = "\n")
+}
+
+#Volume Sampled
+Vol <- function(site,title){
+  ggplot(site, aes(x=`Depth Classification`,y=`Volume Sampled (L)`))+geom_bar(stat="identity", fill='deepskyblue3')+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+labs(title=paste0('Volume Sampled with SyPRID by Depth Classificiation at ',title),x="Depth Classificiation", y="Volume Sampled (L)")+theme(plot.title = element_text(hjust = 0.5))
+}
+
+#Larvae Collected
+Lar <- function(site,title){
+  ggplot(site, aes(x=`Depth Classification`,y=`Total Larva Collected`))+geom_bar(stat="identity", fill='palevioletred3')+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+labs(title=paste0('Larvae Collected with SyPRID by Depth Classification at ',title),x="Depth Classificiation", y="Number of Larvae")+theme(plot.title = element_text(hjust = 0.5))
+}
+  
+#Larval Density
+Den <- function(site,title){
+  my_title <- paste0('Larval Density collected with SyPRID by Depth Classification at ',title)
+  ggplot(site, aes(x=`Depth Classification`,y=`Larval Density (#/L)`))+geom_bar(stat="identity", fill='salmon2')+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+labs(title=my_title ,x="Depth Classificiation", y="Larval Density (#/L)")+theme(plot.title = element_text(hjust = 0.5))+ggtitle(wrapper(my_title, width = 70))
+} 
+
+```
+
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Baltimore Canyon~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+### Baltimore Canyon {.tabset}
+#### Volume Sampled
+```{r}
+Vol(BaltimoreCanyon,"Baltimore Canyon")
+```
+
+#### Larvae Collected
+```{r}
+Lar(BaltimoreCanyon,"Baltimore Canyon")
+```
+
+#### Larval Density
+```{r}
+Den(BaltimoreCanyon,"Baltimore Canyon")
+```
+
+
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Blake Ridge~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+### Blake Ridge {.tabset}
+#### Volume Sampled
+```{r}
+Vol(BlakeRidge, "Blake Ridge")
+```
+
+#### Larvae Collected
+```{r}
+Lar(BlakeRidge, "Blake Ridge")
+```
+
+#### Larval Density
+```{r}
+Den(BlakeRidge, "Blake Ridge")
+```
+
+
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Brine Pool~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+### Brine Pool {.tabset}
+#### Volume Sampled
+```{r}
+Vol(BrinePool, "Brine Pool")
+```
+
+#### Larvae Collected
+```{r}
+Lar(BrinePool, "Brine Pool")
+```
+
+#### Larval Density
+```{r}
+Den(BrinePool, "Brine Pool")
+```
+
+
+<!--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Bush Hill~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+### Bush Hill {.tabset}
+#### Volume Sampled
+```{r}
+Vol(BushHill, "Bush Hill")
+```
+
+#### Larvae Collected
+```{r}
+Lar(BushHill, "Bush Hill")
+```
+
+#### Larval Density
+```{r}
+Den(BushHill, "Bush Hill")
+```
+
+
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Chincoteague~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+### Chincoteague {.tabset}
+#### Volume Sampled
+```{r}
+Vol(Chincoteague, "Chincoteague")
+```
+
+#### Larvae Collected
+```{r}
+Lar(Chincoteague, "Chincoteague")
+```
+
+#### Larval Density
+```{r}
+Den(Chincoteague, "Chincoteague")
+```
+
+
+<!--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Florida Escarpment~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+### Florida Escarpment {.tabset}
+#### Volume Sampled
+```{r}
+Vol(FloridaEscarpment, "Florida Escarpment")
+```
+
+#### Larvae Collected
+```{r}
+Lar(FloridaEscarpment, "Florida Escarpment")
+```
+
+#### Larval Density
+```{r}
+Den(FloridaEscarpment, "Florida Escarpment")
+```
+
+
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Green Canyon 234~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+### Green Canyon 234 {.tabset}
+#### Volume Sampled
+```{r}
+Vol(GC234, "Green Canyon 234")
+```
+
+#### Larvae Collected
+```{r}
+Lar(GC234, "Green Canyon 234")
+```
+
+#### Larval Density
+```{r}
+Den(GC234, "Green Canyon 234")
+```
+
+
+<!---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Mississippi Canyon~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+### Mississippi Canyon {.tabset}
+#### Volume Sampled
+```{r}
+Vol(MississippiCanyon, "Mississippi Canyon")
+```
+
+#### Larvae Collected
+```{r}
+Lar(MississippiCanyon, "Mississippi Canyon")
+```
+
+#### Larval Density
+```{r}
+Den(MississippiCanyon, "Mississippi Canyon")
+```
+
+# **Morphotyping Results**
+
+## **Larval Type Guide**
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+```{r echo=FALSE,results='asis', out.width='100%'}
+kable(Guide, caption="SALT Larval Types Found")
+```
+
+## **Larval Type Presence by Depth**
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.tabset}
+
+### Demersal
+```{r echo=FALSE,results='asis', out.width='100%'}
+kable(LDDem, caption="Larval Types Found at Demersal Depths")
+```
+
+### Mid Water Column
+```{r echo=FALSE,results='asis', out.width='100%'}
+kable(LDMWC, caption="Larval Types Found at Mid Water Column Depths")
+```
+
+### Thermocline
+```{r echo=FALSE,results='asis', out.width='100%'}
+kable(LDTherm, caption="Larval Types Found at Thermocline Depths")
+```
+## {-}
+
+### Larval Types Present in Every Depth Classification*:
+#### *Across sites
+* Brachiolaria (BL)
+* Bivalve Veliger (BV)
+* Gastropod Veliger (GV)
+* Mitraria (MI)
+* Nectochaete (NE)
+* Parenchymula (PC)
+* Planula (PL)
+* Trocophore (TP)
+
+# **Community Composition Analysis** 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## {.tabset}
+
+### NMDS Plot
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+SALT <- read_xlsx("SALT_Larval_Consensus_Final-COPY.xlsx", sheet = "Morphotype Counts by Depth")
+SALT <- subset(SALT, SALT$Method == "Sentry") #Only interested in Sentry Data
+SALT <- subset(SALT, SALT$Site != "Florida Keys") #Not using Florida Keys Samples
+SALT <- subset(SALT, SALT$Cruise != "EN658")
+
+#NMDS Data Analysis
+
+NMDS <- metaMDS(SALT[c(11:151,153:154)], k=2) #Removed unkown (UNK) Morphotype
+
+#Creating a data frame with the NMDS values
+data.scores <- as.data.frame(scores(NMDS,NMDS$sites)) #Using scores functions from Vegan to extract NMDS values into data frame
+data.scores$Site <- SALT$Site #Site Information from SALT Spreadsheet
+data.scores$Cruise <- SALT$Cruise # Cruise EN658 or TN391
+data.scores$Depth <- SALT $`Depth Classification` # Depth Classification - Demersal, Low WC, Mid WC, Thermocline
+
+depth <- data.scores$Depth
+site <- data.scores$Site
+stress <-mean(round(NMDS$stress,digits=1)) 
+p2 <- ggplot() + 
+  geom_point(data=data.scores,aes(x=NMDS1,y=NMDS2,shape=data.scores$Depth, color=data.scores$Site), size=4) + # add the point markers
+  coord_equal() +  scale_color_manual(values=c("Baltimore Canyon" = "firebrick1", "Blake Ridge" = "forest green", "Brine Pool" = "blue", "Bush Hill" = "orange", "Chincoteague" = "darkgoldenrod4", "Florida Escarpment" = "plum2", "Green Canyon 234" = "purple3", "Mississippi Canyon" = "cyan4"), name = "Site") +
+  scale_shape_manual(values=c("Demersal" = 15, "Mid Water Column" = 17, "Thermocline" = 19), name = "Depth Classification") +
+  guides(fill = guide_legend(order = 1, override.aes = list(shape = NA, alpha = 1)), shape = guide_legend(order = 2)) +
+  theme_classic() + 
+  theme(panel.border = element_rect(colour = "black", fill = NA), 
+        axis.text.x = element_text(size=12, colour="black"),  axis.text.y = element_text(size=12, colour="black"), 
+        axis.title.x = element_text(size=14, colour="black"), axis.title.y = element_text(size=14, colour="black"))+annotate("text",x=-0.5,y=.7,label=paste("Stress =",stress))
+p2
+```
+
+
+### Dendogram
+```{r}
+test.dist<-vegdist(SALT[c(11:151,153:154)], method="bray")
+cluster.circles<-hclust(test.dist, method="average") 
+plot(cluster.circles, ylab="Dissimilarity OR 1-Similarity",labels=SALT$`Depth Classification`,hang=-.1, xlab="")
+abline(h=.30,lty=3)
+```
+
+##{-}
+
+## **Morphotype Proportion by Depth and Site** 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## {.tabset}
+
+### Significant Morphotypes
+```{r, out.width='100%', echo=TRUE, warning=FALSE}
+# Heat Map of Bivalve Veliger Morphotypes.
+HeatDat <- read_xlsx("Morphotype_Consensus_Percentages.xlsx", sheet = "Final")
+HeatDat <- subset(HeatDat, HeatDat$Cruise == "TN391")
+HeatMat <- HeatDat[-c(1:6,35)]
+mypalette <- colorRampPalette(c("white","slateblue1","slateblue4"))(n=1000)
+
+
+Sig <- HeatMat[-c(1:2,6:8,11:17,19:21,23,26:28)]
+rownames(Sig) <- c(HeatDat$`Sample Name`)
+
+
+heat <- as.matrix(Sig)
+heat <-t(heat)
+heatmap.2(heat,
+          symkey = FALSE, 
+          Rowv = FALSE,
+          Colv = FALSE,
+          xlab = "Site", 
+          ylab="Morphotype", 
+          ColSideColors = c('dodgerblue4','darkslategray3','cyan2','dodgerblue4','dodgerblue4','cyan2','dodgerblue4','darkslategray3','cyan2','dodgerblue4','darkslategray3','dodgerblue4','darkslategray3','cyan2','dodgerblue4','darkslategray3','dodgerblue4','darkslategray3'),
+          col = mypalette,
+          add.expr = c(abline(v=6.5),
+          col = c("cyan","darkslategray3","dodgerblue4"),pch=19), 
+          trace="none", 
+          density.info = "none", 
+          key.xlab = "Proportion of Larval Sample")
+
+```
+
+### All Morphotypes
+```{r, out.width='100%', echo=TRUE, warning=FALSE}
+# Heat Map of Bivalve Veliger Morphotypes.
+HeatDat <- read_xlsx("Morphotype_Consensus_Percentages.xlsx", sheet = "Final")
+HeatDat <- subset(HeatDat, HeatDat$Cruise == "TN391")
+HeatMat <- HeatDat[-c(1:6,35)]
+mypalette <- colorRampPalette(c("white","slateblue1","slateblue4"))(n=1000)
+
+row.names(HeatMat) <-  (HeatDat$`Sample Name`)
+heat <- as.matrix(HeatMat)
+heat <-t(heat)
+heatmap.2(heat,
+          symkey = FALSE, 
+          Rowv = FALSE,
+          Colv = FALSE,
+          xlab = "Site", 
+          
+          ylab="Morphotype", 
+          ColSideColors = c('dodgerblue4','darkslategray3','cyan2','dodgerblue4','dodgerblue4','cyan2','dodgerblue4','darkslategray3','cyan2','dodgerblue4','darkslategray3','dodgerblue4','darkslategray3','cyan2','dodgerblue4','darkslategray3','dodgerblue4','darkslategray3'),
+          col = mypalette, 
+          add.expr = c(abline(v=6.5),
+          col = c("cyan","darkslategray3","dodgerblue4"),pch=19), 
+          trace="none", 
+          density.info = "none", 
+          key.xlab = "Proportion of Larval Sample")
+```
+
+### Brine Pool Seasonality
+```{r, out.width='100%', echo=TRUE, warning=FALSE}
+# Heat Map of Bivalve Veliger Morphotypes.
+HeatDat <- read_xlsx("Morphotype_Consensus_Percentages.xlsx", sheet = "Final")
+HeatDat <- subset(HeatDat, HeatDat$Site == "Brine Pool")
+HeatMat <- HeatDat[-c(1:6,13,17:18,24,29,32:34,35)]
+mypalette <- colorRampPalette(c("white","slateblue1","slateblue4"))(n=1000)
+
+row.names(HeatMat) <-  (c("FallD","FallM","SpringD","SpringM","SpringT"))
+heat <- as.matrix(HeatMat)
+heat <-t(heat)
+heatmap.2(heat,
+          symkey = FALSE, 
+          Rowv = FALSE,
+          Colv = FALSE,
+          xlab = "Site", 
+          
+          ylab="Morphotype", 
+          ColSideColors = c('dodgerblue4','darkslategray3','dodgerblue4','darkslategray3','cyan2'),
+          col = mypalette, 
+          add.expr = c(abline(v=2.5),
+          col = c("cyan","darkslategray3","dodgerblue4"),pch=19), 
+          trace="none", 
+          density.info = "none", 
+          key.xlab = "Proportion of Larval Sample",
+          srtCol=45)
+```
+
+## {-}
+
+#### * Site codes denote the following: BC = Baltimore Canyon, CH = Chincoteague, BR = Blake Ridge, FE = Florida Escarpment, MC = Mississippi Canyon, BP = Brine Pool, BH = Bush Hill, GC = Green Canyon 234. The letters after these site codes represent the depth classificaiton; D = Demersal, M = Mid Water Column, T = Thermocline. 
+#### For Brine Pool, collections from the Fall 2020 EN658 cruise are denoted with the codes Fall, while the other site codes are from the Spring 2021 TN391 cruise. 
+#### The color bar along the columns acts as a visual aid for the depth classifications; demersal (<span style="color:navy"> darkblue </span>), mid water column (<span style="color:powderblue"> gray-blue </span>), thermocline (<span style="color:cyan"> cyan </span>).
+#### The vertical line represents the geographical split between the Western Atlantic Margin (left) and the Gulf of Mexico (right) sites or the split between Fall and Spring cruises. 
+
+## Total Counts for Depth Classifications (Notes)
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Many BV morphotypes have higher abundance in demersal samples
+  + BV02, BV03, BV04, BV07-BV12, BV14, BV15, BV20
+  + BV01 somewhat consistent across depths
+* Gv morphotypes vary depth classifications
+  + Higher Demersal: GV04, GV07, GV16, GV17, GV19, GV20, GV22
+  + Higher Mid WC: GV09, GV10
+  + Higher Thermocline: GV02, GV03, GV13, GV14, GV21
+  + Higher Mid / Thermo: GV01
+* NE most abundance in Demersal & mid water column.
+* PC more abundant closer to bottom.
+* PG more abundance in thermocline (except PG01 similar thermocline and demersal).
+* PL more abundant higher in water column.
+* TP most abundant demersally, similar low water column and thermocline.
+  + TP01 more abundant closer to bottom.
+* ZO slightly more abundant demersal to thermocline
+
+## **Vertical Distributions of Target Larvae** 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.tabset}
+
+```{r echo=FALSE,results='asis', out.width='100%',message=FALSE, warning=FALSE}
+Vert <- read_xlsx("Morphotype_Consensus_Percentages.xlsx", sheet = "Vert")
+Vert[Vert ==0]<-NA
+Colors <- pnw_palette(name="Starfish",n=8,type="continuous")
+BC <- Colors[1]
+CH <- Colors[2]
+BR <- Colors[3]
+FE <- Colors[4]
+MC <- Colors[5]
+BP <- Colors[6]
+BH <- Colors[7]
+GC <- Colors[8]
+wrapper <- function(x, ...) 
+{
+  paste(strwrap(x, ...), collapse = "\n")
+}
+
+```
+
+### BV_01
+
+```{r echo=FALSE,results='asis', out.width='100%',message=FALSE, warning=FALSE}
+BV1 <- Vert[-c(6:13)]
+BV1 <- BV1[complete.cases(BV1),]
+
+my_title <- "Vertical Distribution of BV_01 Larvae in the Gulf of Mexico and West Atlantic Margin"
+
+ggplot(BV1, aes(x=BV1$BV_01,y=BV1$`Depth Classification`, fill=BV1$Site))+geom_bar(position="stack",stat="identity")+labs(x="# of Individuals Collected per 2,000,000L Sampled", y="Depth Classification")+ggtitle(wrapper(my_title, width = 55))+scale_fill_manual(values=c(BC,BR,FE,GC,"cyan4",BH),name="Site")
+```
+
+### BV_03
+```{r echo=FALSE,results='asis', out.width='100%',message=FALSE, warning=FALSE}
+BV3 <- Vert[-c(5,7:13)]
+BV3 <- BV3[complete.cases(BV3),]
+
+my_title <- "Vertical Distribution of BV_03 Larvae in the Gulf of Mexico and West Atlantic Margin"
+
+ggplot(BV3, aes(x=BV3$BV_03,y=BV3$`Depth Classification`, fill=BV3$Site))+geom_bar(position="stack",stat="identity")+ggtitle(wrapper(my_title, width = 55))+labs(x="# of Individuals Collected per 2,000,000L Sampled", y="Depth Classification")+scale_fill_manual(values=c(BR,BP,BH,GC),name="Site")
+```
+
+### BV_04
+```{r echo=FALSE,results='asis', out.width='100%',message=FALSE, warning=FALSE}
+BV4 <- Vert[-c(5:6,8:13)]
+BV4 <- BV4[complete.cases(BV4),]
+
+my_title <- "Vertical Distribution of BV_04 Larvae in the Gulf of Mexico and West Atlantic Margin"
+
+ggplot(BV4, aes(x=BV4$BV_04,y=BV4$`Depth Classification`, fill=BV4$Site))+geom_bar(position="stack",stat="identity")+ggtitle(wrapper(my_title, width = 55))+labs(x="# of Individuals Collected per 2,000,000L Sampled", y="Depth Classification")+scale_fill_manual(values=c(BR,BP,BH,FE,GC),name="Site")
+```
+
+### BV_20
+```{r echo=FALSE,results='asis', out.width='100%',message=FALSE, warning=FALSE}
+BV20 <- Vert[-c(5:7,9:13)]
+BV20 <- BV20[complete.cases(BV20),]
+
+my_title <- "Vertical Distribution of BV_20 Larvae in the Gulf of Mexico and West Atlantic Margin"
+
+ggplot(BV20, aes(x=BV20$BV_20,y=BV20$`Depth Classification`, fill=BV20$Site))+geom_bar(position="stack",stat="identity")+ggtitle(wrapper(my_title, width = 55))+labs(x="# of Individuals Collected per 2,000,000L Sampled", y="Depth Classification")+scale_fill_manual(values=c(BR,BP,FE,GC,MC),name="Site")
+```
+
+### GV_01
+```{r echo=FALSE,results='asis', out.width='100%',message=FALSE, warning=FALSE}
+GV1 <- Vert[-c(5:8,10:13)]
+GV1 <- GV1[complete.cases(GV1),]
+
+my_title <- "Vertical Distribution of GV_01 Larvae in the Gulf of Mexico and West Atlantic Margin"
+
+ggplot(GV1, aes(x=GV1$GV_01,y=GV1$`Depth Classification`, fill=GV1$Site))+geom_bar(position="stack",stat="identity")+ggtitle(wrapper(my_title, width = 55))+labs(x="# of Individuals Collected per 2,000,000L Sampled", y="Depth Classification")+scale_fill_manual(values=c(BC,BR,BP,GC,MC),name="Site")
+```
+
+### MI_01
+```{r echo=FALSE,results='asis', out.width='100%',message=FALSE, warning=FALSE}
+MI1 <- Vert[-c(5:9,11:13)]
+MI1 <- MI1[complete.cases(MI1),]
+
+my_title <- "Vertical Distribution of MI_01 Larvae in the Gulf of Mexico and West Atlantic Margin"
+
+ggplot(MI1, aes(x=MI1$MI_01,y=MI1$`Depth Classification`, fill=MI1$Site))+geom_bar(position="stack",stat="identity")+ggtitle(wrapper(my_title, width = 55))+labs(x="# of Individuals Collected per 2,000,000L Sampled", y="Depth Classification")+scale_fill_manual(values=c(BR,BH,FE),name="Site")
+```
+
+### PC_01
+```{r echo=FALSE,results='asis', out.width='100%',message=FALSE, warning=FALSE}
+PC1 <- Vert[-c(5:10,12:13)]
+PC1 <- PC1[complete.cases(PC1),]
+
+my_title <- "Vertical Distribution of PC_01 Larvae in the Gulf of Mexico and West Atlantic Margin"
+
+ggplot(PC1, aes(x=PC1$PC_01,y=PC1$`Depth Classification`, fill=PC1$Site))+geom_bar(position="stack",stat="identity")+ggtitle(wrapper(my_title, width = 55))+labs(x="# of Individuals Collected per 2,000,000L Sampled", y="Depth Classification")+scale_fill_manual(values=c(BC,BP),name="Site")
+```
+
+### PG_02
+```{r echo=FALSE,results='asis', out.width='100%',message=FALSE, warning=FALSE}
+PG2 <- Vert[-c(5:11,13)]
+PG2 <- PG2[complete.cases(PG2),]
+
+my_title <- "Vertical Distribution of PG_02 Larvae in the Gulf of Mexico and West Atlantic Margin"
+
+ggplot(PG2, aes(x=PG2$PG_02,y=PG2$`Depth Classification`, fill=PG2$Site))+geom_bar(position="stack",stat="identity")+ggtitle(wrapper(my_title, width = 55))+labs(x="# of Individuals Collected per 2,000,000L Sampled", y="Depth Classification")+scale_fill_manual(values=c(BC,BP,BR,FE),name="Site")
+```
+
+### TP_01
+```{r echo=FALSE,results='asis', out.width='100%',message=FALSE, warning=FALSE}
+TP1 <- Vert[-c(5:12)]
+TP1 <- TP1[complete.cases(TP1),]
+
+my_title <- "Vertical Distribution of TP_01 Larvae in the Gulf of Mexico and West Atlantic Margin"
+
+ggplot(TP1, aes(x=TP1$TP_01,y=TP1$`Depth Classification`, fill=TP1$Site))+geom_bar(position="stack",stat="identity")+ggtitle(wrapper(my_title, width = 55))+labs(x="# of Individuals Collected per 2,000,000L Sampled", y="Depth Classification")+scale_fill_manual(values=c(BC,BP,"cyan4","darkgoldenrod2"),name="Site")
+```
+
+## {-}

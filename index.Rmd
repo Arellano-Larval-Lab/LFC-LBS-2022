@@ -1,0 +1,13 @@
+---
+title: "Larval Fish Conference / Larval Biology Symposium 2022 Poster Presentation"
+output: html_document
+---
+
+Hello! It's larvaly to meet you. Thanks for checking out my poster at the LFC/LBS joint conference in San Diego.
+
+The above tabs will direct you to my data exploration, and to an online version of my presented poster.
+If you're interested in learning more about our project, and to see our research blogs from our cruise, visit our website here: [Arellano Lab](https://wp.wwu.edu/arellanolab/)
+
+This work is funded by the National Science Foundation, NSF Award #1851286.
+
+![Florida Escarpment](Florida Escarpment.png)

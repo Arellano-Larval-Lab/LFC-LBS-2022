@@ -1,0 +1,17 @@
+name: "2022 LFC/LBS Data Exploration"
+output_dir: "docs"
+navbar:
+  title: "2022 LFC/LBS"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Data Exploration"
+      href: data.html
+    - text: "LBS/LFC Poster"
+      href: poster.html
+output:
+  html_document:
+    theme: cosmo
+    toc: true
+    highlight: textmate
+    css: styles.css
